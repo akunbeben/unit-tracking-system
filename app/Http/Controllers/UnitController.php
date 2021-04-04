@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnitStoreRequest;
+use App\Http\Requests\UnitUpdateRequest;
 use App\Repositories\Interfaces\IOwnerRepository;
 use App\Repositories\Interfaces\IUnitRepository;
-use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
@@ -50,19 +50,8 @@ class UnitController extends Controller
     public function store(UnitStoreRequest $request)
     {
         $this->unitRepository->create($request->validated());
-        
-        return redirect(route('unit.list'));
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect(route('unit.list'));
     }
 
     /**
@@ -73,7 +62,10 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $unit = $this->unitRepository->getById($id);
+        $owners = $this->ownerRepository->getAll();
+
+        return view('pages.units.edit', compact('unit', 'owners'));
     }
 
     /**
@@ -83,9 +75,11 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UnitUpdateRequest $request, $id)
     {
-        //
+        $this->unitRepository->update($id, $request->validated());
+
+        return redirect(route('unit.list'));
     }
 
     /**
@@ -96,6 +90,8 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->unitRepository->delete($id);
+
+        return redirect(route('unit.list'));
     }
 }

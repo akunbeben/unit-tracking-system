@@ -32,7 +32,12 @@
                 <td class="text-center">
                   <a href="{{ route('unit.track', $unit->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-map-marker-alt"></i> Find on Map</a>
                   <a href="{{ route('unit.edit', $unit->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
-                  <a href="{{ route('unit.delete', $unit->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</a>
+                  <a href="{{ route('unit.delete', $unit->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</a>
+
+                  <form id="delete-form" action="{{ route('unit.delete', $unit->id) }}" method="POST" class="d-none">
+                    @csrf
+                    @method('DELETE')
+                  </form>
                 </td>
               </tr>
               @endforeach
