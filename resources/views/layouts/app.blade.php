@@ -10,22 +10,23 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
 
-  <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}" defer></script>
-
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+
 </head>
 
 <body>
   <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm" style="background-color: #e3f2fd;">
       <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ route('home') }}">
           {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -35,7 +36,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav mr-auto">
-
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                {{ __('Unit') }}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="{{ route('unit.list') }}">
+                  {{ __('List all units') }}
+                </a>
+                <a class="dropdown-item" href="{{ url('/owner') }}">
+                  {{ __('Owner') }}
+                </a>
+              </div>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="{{ route('unit.list') }}">{{ __('Tracking Unit') }}</a>
+            </li> -->
           </ul>
 
           <!-- Right Side Of Navbar -->
@@ -55,7 +74,7 @@
             @endif
             @else
             <li class="nav-item dropdown">
-              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }}
               </a>
 
@@ -80,5 +99,12 @@
     </main>
   </div>
 </body>
+
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  @yield('javascript-section')
 
 </html>

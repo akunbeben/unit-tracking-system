@@ -13,10 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => view('welcome'));
 
 Route::middleware(['auth'])->group(function () {
+    
+    Route::get('/', fn () => view('home'))->name('home');
 
-    Route::view('home', 'home');
+    Route::name('unit.')->prefix('units')->group(function () {
+        Route::get('/', [\App\Http\Controllers\UnitController::class, 'index'])->name('list');
+        Route::get('/create', [\App\Http\Controllers\UnitController::class, 'create'])->name('create');
+        Route::post('/create', [\App\Http\Controllers\UnitController::class, 'store'])->name('store');
+        Route::get('/{id}/track', [\App\Http\Controllers\UnitController::class, 'track'])->name('track');
+        Route::get('/{id}/edit', [\App\Http\Controllers\UnitController::class, 'edit'])->name('edit');
+        Route::put('/{id}/edit', [\App\Http\Controllers\UnitController::class, 'update'])->name('update');
+        Route::delete('/{id}/delete', [\App\Http\Controllers\UnitController::class, 'destroy'])->name('delete');
+    });
     
 });
