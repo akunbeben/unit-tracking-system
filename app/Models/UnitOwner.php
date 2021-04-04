@@ -11,6 +11,10 @@ class UnitOwner extends Model
 
     protected $table = 'unit_owners';
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function units()
     {
         $this->hasMany(Unit::class, 'owner_id', 'id');

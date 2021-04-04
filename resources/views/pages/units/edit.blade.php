@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
               <label for="unit_description">Unit Description</label>
-              <textarea type="text" class="form-control @error('unit_description') is-invalid @enderror" id="unit_description" name="unit_description" placeholder="Description of unit"></textarea>
+              <textarea type="text" class="form-control @error('unit_description') is-invalid @enderror" id="unit_description" name="unit_description" placeholder="Description of unit">{{ old('unit_description') ?? $unit->unit_description }}</textarea>
               @error('unit_description')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

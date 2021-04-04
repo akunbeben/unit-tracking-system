@@ -20,7 +20,9 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        return $this->ownerRepository->getAll();
+        $data = $this->ownerRepository->paginated(6);
+
+        return view('pages.owners.index', compact('data'));
     }
 
     /**
@@ -30,7 +32,7 @@ class OwnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.owners.create');
     }
 
     /**
@@ -41,18 +43,13 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $this->ownerRepository->create($validated);
+
+        return redirect(route('owner.list'));
     }
 
     /**
@@ -63,7 +60,9 @@ class OwnerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $owner = $this->ownerRepository->getById($id);
+
+        return view('pages.owners.edit', compact('owner'));
     }
 
     /**
@@ -75,7 +74,13 @@ class OwnerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $this->ownerRepository->update($id, $validated);
+
+        return redirect(route('owner.list'));
     }
 
     /**
@@ -86,6 +91,8 @@ class OwnerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->ownerRepository->delete($id);
+        
+        return redirect(route('owner.list'));
     }
 }
