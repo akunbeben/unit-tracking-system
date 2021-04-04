@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', fn () => view('welcome'));
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', fn () => view('welcome'));
 
     Route::view('home', 'home');
+    
 });
